@@ -1,0 +1,22 @@
+.data-table {
+  width: 80%;
+  margin-top: 5rem !important;
+  margin: auto;
+  padding: 5rem;
+}
+.data-form {
+  width: 80%;
+  margin-top: 5rem !important;
+  margin: auto;
+  padding: 5rem;
+}
+
+.inputs {
+  margin-top: 2.5rem;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
