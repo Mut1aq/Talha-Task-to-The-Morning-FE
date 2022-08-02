@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PostsService } from './service/posts.service';
 export interface Post {
   id: number,
@@ -15,16 +16,19 @@ export interface Post {
 export class AppComponent implements OnInit {
   edit: boolean = false
   posts: Post[] = []
+  rowCount
+  // posts$: Observable<Post[]>
 
   constructor(private postsService: PostsService) {
-
+    // this.posts$ = this.postsService.getPosts()
   }
   ngOnInit() {
-    this.getPosts()
+    this.getPosts(3 || this.rowCount)
   }
-  getPosts() {
-    this.postsService.getPosts().subscribe(data => {
-      this.posts = data
+  getPosts(rows) {
+    this.postsService.getPosts(rows).subscribe((data) => {
+      this.rowCount = rows
+      this.posts = data[0] as any
     })
   }
   addPost(title: string, textBody: string, likes: number) {
@@ -34,43 +38,36 @@ export class AppComponent implements OnInit {
       likes
     }
     this.postsService.addPost(post).subscribe(data => {
-      console.log("added ", post)
+      this.getPosts(this.rowCount)
+
     })
-    this.getPosts()
 
 
   }
 
-  updatePost(id: number) {
-    const titleId = document.getElementById(`title${id}`)
-    titleId.removeAttribute('readOnly')
 
-    const textId = document.getElementById(`text${id}`)
-    textId.removeAttribute('readOnly')
+  putPost(id: number, title: string, textBody: string, likes: number) {
+    const post = {
+      id,
+      title, textBody, likes
+    }
+    console.log(post)
 
-    const likesId = document.getElementById(`likes${id}`)
-    likesId.removeAttribute('readOnly')
-
-    const editButton = document.getElementById(`edit${id}`)
-    editButton.setAttribute('disabled', 'disabled')
-
-    this.edit = true
-
-    console.log(id)
+    this.postsService.putPost(post).subscribe(data => {
+      console.log(data)
+    })
   }
 
-  putPost(id: number) {
-    console.log(id)
-  }
 
   deletePost(id: number) {
-    console.log(id)
 
     this.postsService.deletePost(id).subscribe(res => {
       console.log(res)
+      this.getPosts(this.rowCount)
+
     })
-    this.getPosts()
 
   }
+
 
 }

@@ -5,13 +5,33 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule, Routes } from '@angular/router';
+import { AComponent } from './components/a/a.component';
+import { BComponent } from './components/b/b.component';
+
+let routes: Routes = [
+  {
+    path: "a",
+    component: AComponent,
+  },
+  {
+    path: "b",
+    component: BComponent,
+  },
+]
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FileUploadComponent,
+    AComponent,
+    BComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +40,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatPaginatorModule,
     MatInputModule,
     MatSortModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
