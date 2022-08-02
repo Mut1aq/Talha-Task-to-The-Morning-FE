@@ -31,16 +31,21 @@ export class FileUploadComponent implements OnInit {
 
     if (exportedAmount === 'allPosts') {
       this.exportedPosts = await this.postsService.getAllPosts().toPromise()
+      console.log(this.exportedPosts);
+      this.http.post('http://localhost:3000/posts/exportCSV', { posts: this.exportedPosts }, { headers })
+        .subscribe(res => {
+          console.log(res);
+        })
     } else {
       this.exportedPosts = await this.postsService.getPosts(this.rowCount).toPromise()
       console.log(this.exportedPosts);
-
+      this.http.post('http://localhost:3000/posts/exportCSV', { posts: this.exportedPosts[0] }, { headers })
+        .subscribe(res => {
+          console.log(res);
+        })
     }
 
-    this.http.post('http://localhost:3000/posts/exportCSV', { posts: this.exportedPosts }, { headers })
-      .subscribe(res => {
-        console.log(res);
-      })
+
   }
 
   getPosts() {
@@ -74,7 +79,7 @@ export class FileUploadComponent implements OnInit {
     this.http.post(this.SERVER_URL, formData)
       .subscribe(res => {
         console.log(res);
-        this.getPosts()
+        return this.getPosts()
       })
   }
 
