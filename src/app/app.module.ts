@@ -12,6 +12,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AComponent } from './components/a/a.component';
 import { BComponent } from './components/b/b.component';
 
@@ -43,7 +44,7 @@ let routes: Routes = [
     HttpClientModule,
     MatIconModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -109,7 +109,7 @@
         <input
           type="text"
           class="form-control inputs"
-          #title
+          #updateTitle
           placeholder="Title"
         />
       </div>
@@ -117,7 +117,7 @@
         <input
           type="text"
           class="form-control inputs"
-          #textBody
+          #updateTextBody
           placeholder="Text"
         />
       </div>
@@ -125,7 +125,7 @@
         <input
           type="number"
           class="form-control inputs"
-          #likes
+          #updateLikes
           placeholder="Likes"
         />
       </div>
@@ -133,7 +133,14 @@
         <button
           type="button"
           class="btn btn-primary inputs"
-          (click)="putPost(id.value, title.value, textBody.value, likes.value)"
+          (click)="
+            putPost(
+              id.value,
+              updateTitle.value,
+              updateTextBody.value,
+              updateLikes.value
+            )
+          "
         >
           Edit
         </button>
@@ -141,4 +148,3 @@
     </form>
   </div>
 </section>
-<!-- <router-outlet></router-outlet> -->

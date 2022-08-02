@@ -16,6 +16,7 @@ export interface Post {
 export class AppComponent implements OnInit {
   edit: boolean = false
   posts: Post[] = []
+  updatePost: Post
   rowCount
   // posts$: Observable<Post[]>
 
@@ -45,22 +46,26 @@ export class AppComponent implements OnInit {
 
   }
 
-
   putPost(id: number, title: string, textBody: string, likes: number) {
-    const post = {
-      id,
-      title, textBody, likes
-    }
-    console.log(post)
+    console.log(id)
 
-    this.postsService.putPost(post).subscribe(data => {
+    this.updatePost = {
+      id,
+      title: title,
+      textBody: textBody,
+      likes: likes
+    }
+
+    this.postsService.putPost(this.updatePost).subscribe(data => {
       console.log(data)
+      this.getPosts(this.rowCount)
+
     })
+
   }
 
 
   deletePost(id: number) {
-
     this.postsService.deletePost(id).subscribe(res => {
       console.log(res)
       this.getPosts(this.rowCount)
