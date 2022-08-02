@@ -1,0 +1,14 @@
+<ng-container *ngIf="data$ | async as data; else loading">
+  <ng-container *ngFor="let user of data.users">
+    <div>
+      <img style="width: 30px" [src]="user.imageUrl" alt="" />
+    </div>
+    <div>{{ user.name }}</div>
+    <app-b [posts]="data.posts"></app-b>
+  </ng-container>
+  >
+</ng-container>
+
+<ng-template #loading>
+  <p>is Loading ......</p>
+</ng-template>

@@ -2,10 +2,7 @@
 
 <section class="container">
   <h2 class="display-2 text-center mt-5">Posts</h2>
-  <div class="mt-5 text-center">
-    <button class="btn btn-primary">Export to CSV</button>
-    <button class="btn btn-success">Upload a CSV</button>
-  </div>
+  <app-file-upload [posts]="posts" [rowCount]="rowCount"></app-file-upload>
   <table class="table table-striped data-table border">
     <thead>
       <tr id="tr">
@@ -14,9 +11,6 @@
         <th scope="col">Text</th>
         <th scope="col">Likes</th>
         <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col" [hidden]="!edit"></th>
-        <!-- <th scope="col"></th> -->
       </tr>
     </thead>
     <tbody>
@@ -53,27 +47,20 @@
             Delete
           </button>
         </td>
-        <td>
-          <button
-            (click)="updatePost(post.id)"
-            id="edit{{ post.id }}"
-            class="btn btn-warning"
-          >
-            Edit
-          </button>
-        </td>
-        <td [hidden]="!edit">
-          <button
-            (click)="putPost(post.id)"
-            id="update{{ post.id }}"
-            class="btn btn-primary update"
-          >
-            Update
-          </button>
-        </td>
       </tr>
     </tbody>
   </table>
+  <input
+    value="3"
+    #rows
+    min="1"
+    type="number"
+    class="form-control w-50 mt-5"
+    placeholder="How many rows do you want?"
+  />
+  <button (click)="getPosts(rows.value)" class="mt-2 btn btn-primary">
+    Get
+  </button>
 </section>
 <section class="container">
   <h2 class="display-2 text-center mt-5">Add a new Post</h2>
@@ -104,7 +91,7 @@
     </div>
     <div class="mb-3 w-50 m-auto">
       <button
-        type="submit"
+        type="button"
         class="btn btn-primary inputs"
         (click)="addPost(title.value, textBody.value, likes.value)"
       >
@@ -112,4 +99,46 @@
       </button>
     </div>
   </form>
+  <div>
+    <h2 class="display-2 text-center mt-5">Edit Post</h2>
+    <form class="border data-form">
+      <div class="mb-3 w-50 m-auto">
+        <input type="number" class="form-control inputs" #id placeholder="ID" />
+      </div>
+      <div class="mb-3 w-50 m-auto">
+        <input
+          type="text"
+          class="form-control inputs"
+          #title
+          placeholder="Title"
+        />
+      </div>
+      <div class="mb-3 w-50 m-auto">
+        <input
+          type="text"
+          class="form-control inputs"
+          #textBody
+          placeholder="Text"
+        />
+      </div>
+      <div class="mb-3 w-50 m-auto">
+        <input
+          type="number"
+          class="form-control inputs"
+          #likes
+          placeholder="Likes"
+        />
+      </div>
+      <div class="mb-3 w-50 m-auto">
+        <button
+          type="button"
+          class="btn btn-primary inputs"
+          (click)="putPost(id.value, title.value, textBody.value, likes.value)"
+        >
+          Edit
+        </button>
+      </div>
+    </form>
+  </div>
 </section>
+<!-- <router-outlet></router-outlet> -->
